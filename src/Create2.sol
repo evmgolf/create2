@@ -33,4 +33,14 @@ library Create2 {
   function text(bytes memory _text) internal pure returns (bytes memory) {
     return abi.encodePacked(hex"63", uint32(_text.length), hex"80_60_0E_60_00_39_60_00_F3", _text);
   }
+
+  function hasBadText(bytes memory _text) internal pure returns (bool has) {
+    for (uint i=0;i<_text.length;i++) {
+      bytes1 char = _text[i];
+      if (char == 0xef) {
+        return true;
+      }
+    }
+    return false;
+  }
 }
