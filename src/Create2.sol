@@ -24,4 +24,9 @@ library Create2 {
       store := create2(0, add(_text, 0x20), mload(_text), salt)
     }
   }
+
+  // @author: Adapted from https://github.com/0xsequence/sstore2/blob/b9233bcf1bbbbed37f9029e0355ac3026cd3563b/contracts/utils/Bytecode.sol
+  function create2Text(uint salt, bytes memory _text) internal returns (address store) {
+    store = create2(salt, abi.encodePacked(hex"63", uint32(_text.length), hex"80_60_0E_60_00_39_60_00_F3", _text));
+  }
 }

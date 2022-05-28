@@ -38,4 +38,19 @@ contract Create2Test is Test {
   function testGasCreate2ReturnEth() public {
     Create2.create2(0, type(ReturnEth).creationCode);
   }
+
+  function testCreate2Text(uint salt, bytes calldata text) public {
+    bool isValid = true;
+    for (uint i=0;i<text.length&&isValid;i++) {
+      bytes1 char = text[i];
+      isValid = (char != 0xef);
+    }
+
+    address created = Create2.create2Text(salt, text);
+
+    if (isValid) {
+      assertTrue(created != address(0));
+      assertEq0(text, created.code);
+    }
+  }
 }
