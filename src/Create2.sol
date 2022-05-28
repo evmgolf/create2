@@ -29,4 +29,8 @@ library Create2 {
   function create2Text(uint salt, bytes memory _text) internal returns (address store) {
     store = create2(salt, abi.encodePacked(hex"63", uint32(_text.length), hex"80_60_0E_60_00_39_60_00_F3", _text));
   }
+
+  function text(bytes memory _text) internal pure returns (bytes memory) {
+    return abi.encodePacked(hex"63", uint32(_text.length), hex"80_60_0E_60_00_39_60_00_F3", _text);
+  }
 }
