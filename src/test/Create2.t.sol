@@ -16,27 +16,27 @@ contract Create2Test is Test {
     assertEq(address(this).create2Address(salt, type(Empty).creationCode), created);
   }
 
-  function testDoubleCreate2() public {
+  function testDoubleCreate2(uint salt) public {
     bytes memory text = type(Empty).creationCode;
-    Create2.create2(0, text);
+    Create2.create2(salt, text);
 
-    assertEq(Create2.create2(0, text), address(0));
+    assertEq(Create2.create2(salt, text), address(0));
   }
 
-  function testGasCreate2Empty() public {
-    Create2.create2(0, type(Empty).creationCode);
+  function testGasCreate2Empty(uint salt) public {
+    Create2.create2(salt, type(Empty).creationCode);
   }
-  function testGasCreate2Identity() public {
-    Create2.create2(0, type(Identity).creationCode);
+  function testGasCreate2Identity(uint salt) public {
+    Create2.create2(salt, type(Identity).creationCode);
   }
-  function testGasCreate2Add() public {
-    Create2.create2(0, type(Add).creationCode);
+  function testGasCreate2Add(uint salt) public {
+    Create2.create2(salt, type(Add).creationCode);
   }
-  function testGasCreate2Sub() public {
-    Create2.create2(0, type(Sub).creationCode);
+  function testGasCreate2Sub(uint salt) public {
+    Create2.create2(salt, type(Sub).creationCode);
   }
-  function testGasCreate2ReturnEth() public {
-    Create2.create2(0, type(ReturnEth).creationCode);
+  function testGasCreate2ReturnEth(uint salt) public {
+    Create2.create2(salt, type(ReturnEth).creationCode);
   }
 
   function testCreate2Text(uint salt, bytes calldata text) public {
